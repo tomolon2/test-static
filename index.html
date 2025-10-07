@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dice Roller</title>
+</head>
+<body>
+  <h1>Dice Roller Test Page</h1>
+  <button id="rollBtn">Roll Dice</button>
+  <p id="result"></p>
+
+  <script>
+    document.getElementById('rollBtn').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/roll'); // Calls Node REST API
+        if (!res.ok) throw new Error('Network response was not ok');
+        const data = await res.json();
+        document.getElementById('result').textContent = "Dice rolled: " + data.result;
+      } catch (err) {
+        document.getElementById('result').textContent = "Error calling API";
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
